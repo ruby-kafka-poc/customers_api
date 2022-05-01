@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe '/organizations', type: :request do
   let(:valid_attributes) do
     {
-      name: Faker::Company.name,
+      name: Faker::Company.name
     }
   end
 
@@ -49,13 +49,13 @@ RSpec.describe '/organizations', type: :request do
       it 'creates a new Organization' do
         expect do
           post organizations_url,
-            params: { organization: valid_attributes }, headers: valid_headers, as: :json
+               params: { organization: valid_attributes }, headers: valid_headers, as: :json
         end.to change(Organization, :count).by(1)
       end
 
       it 'renders a JSON response with the new organization' do
         post organizations_url,
-          params: { organization: valid_attributes }, headers: valid_headers, as: :json
+             params: { organization: valid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:created)
         expect(response.content_type).to match(a_string_including('application/json'))
       end
@@ -65,13 +65,13 @@ RSpec.describe '/organizations', type: :request do
       it 'does not create a new Organization' do
         expect do
           post organizations_url,
-            params: { organization: invalid_attributes }, as: :json
+               params: { organization: invalid_attributes }, as: :json
         end.to change(Organization, :count).by(0)
       end
 
       it 'renders a JSON response with errors for the new organization' do
         post organizations_url,
-          params: { organization: invalid_attributes }, headers: valid_headers, as: :json
+             params: { organization: invalid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to match(a_string_including('application/json'))
       end
@@ -88,7 +88,7 @@ RSpec.describe '/organizations', type: :request do
 
       it 'updates the requested organization' do
         patch organization_url(organization),
-          params: { organization: new_attributes }, headers: valid_headers, as: :json
+              params: { organization: new_attributes }, headers: valid_headers, as: :json
         expect(organization.reload.name).to eq('Edited')
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to match(a_string_including('application/json'))
@@ -98,7 +98,7 @@ RSpec.describe '/organizations', type: :request do
     context 'with invalid parameters' do
       it 'renders a JSON response with errors for the organization' do
         patch organization_url(organization),
-          params: { organization: invalid_attributes }, headers: valid_headers, as: :json
+              params: { organization: invalid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to match(a_string_including('application/json'))
       end
