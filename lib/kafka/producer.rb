@@ -13,11 +13,15 @@ module Kafka
       payload = payload.is_a?(Hash) ? JSON.dump(payload) : payload.to_s
       client.producer.produce(payload, topic: topic.underscore)
       # client.each_message(topic: topic) { |m| puts m.offset, m.key, m.value}
+      @dirty = true
     end
 
     # Flush messages to Kafka
     def self.deliver!
+      return unless  @dirty
+
       client.producer.deliver_messages
+      @dirty = false
     end
 
     def self.client
