@@ -10,10 +10,12 @@ gem 'dotenv-rails'
 gem 'pg'
 gem 'puma', '~> 5.0'
 gem 'rails', '~> 7.0.2', '>= 7.0.2.3'
+gem 'ruby-kafka'
 
 group :development, :test do
   gem 'debug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails'
+  gem 'faker'
   gem 'rspec-rails'
 end
 
@@ -32,7 +34,6 @@ group :development do
 end
 
 group :test do
-  gem 'faker'
   gem 'rspec'
   gem 'timecop'
 end

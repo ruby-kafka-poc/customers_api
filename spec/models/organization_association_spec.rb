@@ -21,7 +21,7 @@ RSpec.describe OrganizationAssociation, type: :model do
       organization:
     )
     expect(association.valid?).to be_falsey
-    expect(association.errors.full_messages).to include("Customer can't be blank")
+    expect(association.errors.full_messages).to include('Customer must exist')
   end
 
   it 'is not valid without a organization' do
@@ -29,6 +29,6 @@ RSpec.describe OrganizationAssociation, type: :model do
       customer:
     )
     expect(association.valid?).to be_falsey
-    expect(association.errors.full_messages).to include("Organization can't be blank")
+    expect(association.errors.full_messages).to include('Organization must exist')
   end
 end
