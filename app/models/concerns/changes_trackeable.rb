@@ -12,7 +12,7 @@ module ChangesTrackeable
     after_save :track_saved_changes
   end
 
-  # on initalize, but useful for fine grain control
+  # on initialize, but useful for fine grain control
   def reset_saved_changes
     @saved_changes_unfiltered = {}
     @saved_changes_history = []
@@ -20,7 +20,7 @@ module ChangesTrackeable
 
   # filter out any changes that result in the original value
   def saved_changes
-    @saved_changes_unfiltered.reject { |_, v| v[0] == v[1] }
+    @saved_changes_unfiltered.reject { |_, value| value[0] == value[1] }
   end
 
   private
@@ -30,22 +30,22 @@ module ChangesTrackeable
     # maintain an array of ActiveModel::Dirty.changes
     @saved_changes_history << changes.dup
     # accumulate the most recent changes
-    @saved_changes_history.last.each_pair { |k, v| track_saved_change k, v }
+    @saved_changes_history.last.each_pair { |key, value| track_saved_change key, value }
   end
 
-  # v is an an array of [prev, current]
-  def track_saved_change(k, v)
-    if @saved_changes_unfiltered.key? k
-      @saved_changes_unfiltered[k][1] = track_saved_value v[1]
+  # value is an an array of [prev, current]
+  def track_saved_change(key, value)
+    if @saved_changes_unfiltered.key? key
+      @saved_changes_unfiltered[key][1] = track_saved_value value[1]
     else
-      @saved_changes_unfiltered[k] = v.dup
+      @saved_changes_unfiltered[key] = value.dup
     end
   end
 
   # type safe dup inspred by http://stackoverflow.com/a/20955038
-  def track_saved_value(v)
-    v.dup
+  def track_saved_value(value)
+    value.dup
   rescue TypeError
-    v
+    value
   end
 end
