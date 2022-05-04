@@ -2,6 +2,8 @@
 
 module Kafka
   class DeliverMessagesMiddleware
+    VERBS = %w[POST PATCH PUT]
+
     def initialize(app)
       @app = app
     end
@@ -10,7 +12,7 @@ module Kafka
     def call(env)
       @app.call(env)
     ensure
-      Kafka::Producer.deliver!
+      Kafka::Producer.deliver! if VERBS.include?(env[Rack::REQUEST_METHOD])
     end
   end
 end

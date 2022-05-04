@@ -11,6 +11,7 @@ module Kafka
     # @param topic [String] kafka topic name.
     def self.produce(payload, topic = 'default')
       payload = payload.is_a?(Hash) ? JSON.dump(payload) : payload.to_s
+      # Rails.logger.debug("kafka produce: #{payload} to topic #{topic}. hash? #{payload.is_a?(Hash)}")
       client.producer.produce(payload, topic: topic.underscore)
       # client.each_message(topic: topic) { |m| puts m.offset, m.key, m.value}
       @dirty = true
@@ -18,10 +19,12 @@ module Kafka
 
     # Flush messages to Kafka
     def self.deliver!
+
+      Rails.logger.debug("kafka deliver: dirty: #{@dirty}")
       return unless  @dirty
 
-      client.producer.deliver_messages
       @dirty = false
+      client.producer.deliver_messages
     end
 
     def self.client
