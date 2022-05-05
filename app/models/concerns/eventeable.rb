@@ -13,7 +13,6 @@ module Eventeable
 
   def publish!(action)
     Kafka::Producer.produce(payload(action), "#{self.class.name}-#{action}".underscore)
-    # TODO: flush in dev/by flag? Kafka::Producer.deliver!
   end
 
   def publish_created!
