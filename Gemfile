@@ -11,8 +11,6 @@ gem 'karafka', '>= 2.0.0.alpha2'
 gem 'pg'
 gem 'puma', '~> 5.0'
 gem 'rails', '~> 7.0.2', '>= 7.0.2.3'
-# gem 'waterdrop'
-# gem 'ruby-kafka'
 
 group :development, :test do
   gem 'debug', platforms: %i[mri mingw x64_mingw]
