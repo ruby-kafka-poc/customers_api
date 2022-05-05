@@ -4,31 +4,49 @@ require 'json'
 
 module Kafka
   class Producer
+    MODES = %i[sync async buffer].freeze
     # Send payload to Kafka
     #
     # @param payload [Object] Hash will dump to string. any other `#to_s`
     #
     # @param topic [String] kafka topic name.
-    def self.produce(payload, topic = 'default')
+    # rubocop:disable Metrics/MethodLength
+    def self.produce(payload, topic = 'default', mode = :buffer)
       payload = payload.is_a?(Hash) ? JSON.dump(payload) : payload.to_s
-      # Rails.logger.debug("kafka produce: #{payload} to topic #{topic}. hash? #{payload.is_a?(Hash)}")
-      client.producer.produce(payload, topic: topic.underscore)
-      # client.each_message(topic: topic) { |m| puts m.offset, m.key, m.value}
-      @dirty = true
+
+      case mode
+      when :buffer
+        client.buffer(topic: topic.underscore, payload:)
+        @dirty = true
+      when :async
+        client.produce_async(topic: topic.underscore, payload:)
+      when :sync
+        client.produce_sync(topic: topic.underscore, payload:)
+      else
+        raise "Invalid mode. Must be one of #{MODES}"
+      end
     end
+    # rubocop:enable Metrics/MethodLength
 
     # Flush messages to Kafka
     def self.deliver!
-
-      Rails.logger.debug("kafka deliver: dirty: #{@dirty}")
-      return unless  @dirty
+      Rails.logger.debug { "kafka deliver: dirty: #{@dirty}" }
+      return unless @dirty
 
       @dirty = false
-      client.producer.deliver_messages
+      client.flush_sync
     end
 
     def self.client
-      @client ||= Kafka.new(['localhost:9092'], client_id: 'customer_api')
+      @client ||= WaterDrop::Producer.new.tap do |producer|
+        producer.setup do |config|
+          config.deliver = true
+          config.kafka = {
+            'bootstrap.servers': 'localhost:9092',
+            'request.required.acks': 1
+          }
+        end
+      end
     end
   end
 end

@@ -2,7 +2,7 @@
 
 module Kafka
   class DeliverMessagesMiddleware
-    VERBS = %w[POST PATCH PUT]
+    VERBS = %w[POST PATCH PUT DESTROY].freeze
 
     def initialize(app)
       @app = app
