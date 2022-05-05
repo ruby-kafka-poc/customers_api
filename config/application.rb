@@ -37,5 +37,9 @@ module CustomersApi
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+
+    Dir[File.expand_path('../lib/**/*.rb', __dir__)].each { |file| require file }
+
+    config.middleware.use(Kafka::DeliverMessagesMiddleware)
   end
 end
