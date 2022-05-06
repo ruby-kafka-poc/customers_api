@@ -40,6 +40,6 @@ module CustomersApi
 
     Dir[File.expand_path('../lib/**/*.rb', __dir__)].each { |file| require file }
 
-    config.middleware.use(Kafka::DeliverMessagesMiddleware)
+    config.middleware.use(KafkaRailsIntegration::Middlewares::DeliverMessages)
   end
 end

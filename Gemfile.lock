@@ -1,3 +1,10 @@
+GIT
+  remote: git@github.com:ruby-kafka-poc/rails_kafka_integration.git
+  revision: d90e929fbcb59c5908db43d22749f8dfe028c1c2
+  ref: d90e929
+  specs:
+    kafka_rails_integration (0.1.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -69,7 +76,7 @@ GEM
       minitest (>= 5.1)
       tzinfo (~> 2.0)
     ast (2.4.2)
-    brakeman (5.2.2)
+    brakeman (5.2.3)
     builder (3.2.4)
     bullet (7.0.1)
       activesupport (>= 3.0.0)
@@ -181,7 +188,7 @@ GEM
       net-protocol
       timeout
     nio4r (2.5.8)
-    nokogiri (1.13.4-x86_64-darwin)
+    nokogiri (1.13.5-x86_64-darwin)
       racc (~> 1.4)
     parallel (1.22.1)
     parser (3.1.2.0)
@@ -317,6 +324,7 @@ DEPENDENCIES
   factory_bot_rails
   faker
   formatador
+  kafka_rails_integration!
   karafka (>= 2.0.0.alpha2)
   pg
   puma (~> 5.0)

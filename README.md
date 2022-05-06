@@ -22,3 +22,4 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+  docker-compose exec broker kafka-topics --describe --bootstrap-server localhost:9092  | awk '{ print $2 }' | trim
