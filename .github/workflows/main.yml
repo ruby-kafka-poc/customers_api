@@ -54,7 +54,7 @@ jobs:
           PGUSER: postgres
           PGPASSWORD: postgres
           RAILS_ENV: test
-        run: bundle exec rails db:create db:migrate
+        run: bin/rails db:create db:migrate
 
       - name: Run the default task
         run: bundle exec rake
