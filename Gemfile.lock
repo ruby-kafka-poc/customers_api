@@ -1,10 +1,9 @@
 GIT
   remote: git@github.com:ruby-kafka-poc/rails_kafka_integration.git
-  revision: 9b33d72476fd5f2f07721824851f173447b1e0e1
-  ref: 9b33d72
+  revision: cc8933872e3e94f311533b76fa293a1c2a641a77
+  ref: cc89338
   specs:
     kafka_rails_integration (0.1.0)
-      activesupport (~> 7.0.2)
 
 GEM
   remote: https://rubygems.org/
