@@ -1,11 +1,12 @@
 name: Ruby
 
 on:
+  pull_request:
+    branches:
+      - 'main'
   push:
     branches:
-      - master
-
-  pull_request:
+      - 'main'
 
 jobs:
   build:
@@ -16,28 +17,29 @@ jobs:
         ruby:
           - '3.1.2'
 
+    services:
+      postgres:
+        image: postgres:14.2-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-#      with:
-#        persist-credentials: false
-#
-#    - name: Reconfigure git to use HTTP authentication
-#      run: >
-#        git config --global url."https://github.com/".insteadOf ssh://git@github.com/
-#    - run: |
-#        echo "$MY_PRIVATE_KEY" > mykey
-#        env:
-#        MY_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
-#    - uses: actions/checkout@v2
-#      with:
-#        ssh-key: ${{ secrets.MACHINE_USER_KEY }}
-    - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: ${{ matrix.ruby }}
-        bundler-cache: true
-    - name: Run the default task
-      run: bundle exec rake
-#    - name: ssh
-#      run: ssh -T git@github.com
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true
+
+      - name: Run the default task
+        run: bundle exec rake
