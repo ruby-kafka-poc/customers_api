@@ -10,7 +10,7 @@ gem 'dotenv-rails'
 gem 'kafka_rails_integration',
     git: 'https://github.com/ruby-kafka-poc/rails_kafka_integration.git'
     # git: 'git@github.com:ruby-kafka-poc/rails_kafka_integration.git',
-    # ref: 'cc89338' # branch: 'added_lib'
+    # ref: 'cc89338' # branch: 'added_lib' # tag: '2.0.1'
 
 gem 'karafka', '>= 2.0.0.alpha2'
 gem 'pg'

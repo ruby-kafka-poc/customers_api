@@ -19,12 +19,12 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-      with:
-        persist-credentials: false
-
-    - name: Reconfigure git to use HTTP authentication
-      run: >
-        git config --global url."https://github.com/".insteadOf ssh://git@github.com/
+#      with:
+#        persist-credentials: false
+#
+#    - name: Reconfigure git to use HTTP authentication
+#      run: >
+#        git config --global url."https://github.com/".insteadOf ssh://git@github.com/
 #    - run: |
 #        echo "$MY_PRIVATE_KEY" > mykey
 #        env:
