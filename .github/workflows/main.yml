@@ -51,10 +51,10 @@ jobs:
       - name: Build App
         env:
           PGHOST: localhost
-          PGUSER: postgres
-          PGPASSWORD: postgres
           RAILS_ENV: test
         run: bin/rails db:create db:migrate
 
       - name: Run the default task
+        env:
+          PGHOST: localhost
         run: bundle exec rake
