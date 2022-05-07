@@ -17,9 +17,7 @@ jobs:
           - '3.1.2'
 
     steps:
-    - uses: actions/checkout@v2
-    - name: ssh
-      run: ssh -T git@github.com
+    - uses: actions/checkout@v3
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
@@ -27,3 +25,5 @@ jobs:
         bundler-cache: true
     - name: Run the default task
       run: bundle exec rake
+#    - name: ssh
+#      run: ssh -T git@github.com
