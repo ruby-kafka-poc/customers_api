@@ -17,11 +17,25 @@ jobs:
           - '3.1.2'
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        persist-credentials: false
+
+    - name: Reconfigure git to use HTTP authentication
+      run: >
+        git config --global url."https://github.com/".insteadOf
+        ssh://git@github.com/
+#    - run: |
+#        echo "$MY_PRIVATE_KEY" > mykey
+#        env:
+#        MY_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
+#    - uses: actions/checkout@v2
+#      with:
+#        ssh-key: ${{ secrets.MACHINE_USER_KEY }}
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
-        ssh-key: ${{ secrets.MACHINE_USER_KEY }}
         ruby-version: ${{ matrix.ruby }}
         bundler-cache: true
     - name: Run the default task
