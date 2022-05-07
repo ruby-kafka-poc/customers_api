@@ -1,9 +1,10 @@
 GIT
   remote: git@github.com:ruby-kafka-poc/rails_kafka_integration.git
-  revision: d90e929fbcb59c5908db43d22749f8dfe028c1c2
-  ref: d90e929
+  revision: 9b33d72476fd5f2f07721824851f173447b1e0e1
+  ref: 9b33d72
   specs:
     kafka_rails_integration (0.1.0)
+      activesupport (~> 7.0.2)
 
 GEM
   remote: https://rubygems.org/
@@ -266,12 +267,12 @@ GEM
       rspec-mocks (~> 3.10)
       rspec-support (~> 3.10)
     rspec-support (3.11.0)
-    rubocop (1.28.2)
+    rubocop (1.29.0)
       parallel (~> 1.10)
       parser (>= 3.1.0.0)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 1.8, < 3.0)
-      rexml
+      rexml (>= 3.2.5, < 4.0)
       rubocop-ast (>= 1.17.0, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 3.0)
