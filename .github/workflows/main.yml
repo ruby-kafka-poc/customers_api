@@ -18,11 +18,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-      with:
-        ssh-key: ${{ secrets.MACHINE_USER_KEY }}
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
+        ssh-key: ${{ secrets.MACHINE_USER_KEY }}
         ruby-version: ${{ matrix.ruby }}
         bundler-cache: true
     - name: Run the default task
