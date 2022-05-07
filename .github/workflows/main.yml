@@ -45,14 +45,16 @@ jobs:
         run: |
           sudo apt-get -yqq install libpq-dev
 
+      - name: ls
+        run: ls
+
       - name: Build App
         env:
           PGHOST: localhost
           PGUSER: postgres
           PGPASSWORD: postgres
           RAILS_ENV: test
-        run: |
-          bundle exec rails db:create db:migrate
+        run: bundle exec rails db:create db:migrate
 
       - name: Run the default task
         run: bundle exec rake
