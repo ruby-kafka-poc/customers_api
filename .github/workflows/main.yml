@@ -22,8 +22,8 @@ jobs:
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: ${{ matrix.ruby }}
-        bundler-cache: false
-    - name: Install
-      run: bundle install
+        bundler-cache: true
+    - name: clean cache
+      run: rm -rf /home/runner/work/customers_api/customers_api
     - name: Run the default task
       run: bundle exec rake
