@@ -52,7 +52,7 @@ jobs:
           PGPASSWORD: postgres
           RAILS_ENV: test
         run: |
-          bin/rails db:setup
+          bundle exec rails db:setup
 
       - name: Run the default task
         run: bundle exec rake
