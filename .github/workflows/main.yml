@@ -18,12 +18,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: ssh
+      run: ssh -T git@github.com
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: ${{ matrix.ruby }}
         bundler-cache: true
-    - name: ssh
-      run: ssh -T git@github.com
     - name: Run the default task
       run: bundle exec rake
