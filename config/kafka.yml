@@ -1,0 +1,16 @@
+default: &default
+  bootstrap_servers: 'pkc-lzvrd.us-west4.gcp.confluent.cloud:9092',
+  security_protocol: 'sasl_ssl',
+  sasl_mechanism: 'PLAIN',
+  sasl_username: 'E3OUITFRUK36BCQY',
+  sasl_password: 'wdWQBT64uJB/06VepuBn2Q/3qP0tPAkivdwIe4+N5/Fy3bI1odULBk3g8k4o/5rF',
+
+test:
+  <<: *default
+  bootstrap_servers: 'localhost:9092',
+
+development:
+  <<: *default
+
+production:
+  <<: *default

@@ -1,7 +1,7 @@
 GIT
   remote: https://github.com/ruby-kafka-poc/rails_kafka_integration.git
-  revision: 2e3dd39b1bff1cce7987329dadc0665f2593ca02
-  branch: allow_params
+  revision: 880c75532fad768e204c7be1258e304199ad2706
+  branch: add_config
   specs:
     kafka_rails_integration (0.1.0)
 
