@@ -1,13 +1,20 @@
 default: &default
-  bootstrap_servers: 'pkc-lzvrd.us-west4.gcp.confluent.cloud:9092',
-  security_protocol: 'sasl_ssl',
-  sasl_mechanism: 'PLAIN',
-  sasl_username: 'E3OUITFRUK36BCQY',
-  sasl_password: 'wdWQBT64uJB/06VepuBn2Q/3qP0tPAkivdwIe4+N5/Fy3bI1odULBk3g8k4o/5rF',
+  bootstrap_servers: <%= ENV['BOOTSTRAP_SERVERS'] || 'localhost:9092' %>
+  security_protocol: <%= ENV['SECURITY_PROTOCOL'] %>
+  sasl_mechanism: <%= ENV['SASL_MECHANISM'] %>
+  sasl_username: <%= ENV['SASL_USERNAME'] %>
+  sasl_password: <%= ENV['SASL_PASSWORD'] %>
+  topics:
+    - customer_created
+    - customer_deleted
+    - customer_updated
+    - organization_created
+    - organization_updated
+    - organization_deleted
 
 test:
   <<: *default
-  bootstrap_servers: 'localhost:9092',
+  bootstrap_servers: 'localhost:9092'
 
 development:
   <<: *default
