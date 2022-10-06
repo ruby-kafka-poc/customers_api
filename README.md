@@ -1,25 +1,54 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Simple API to create customers
+It act as a producer to confluent Kafka
 
-Things you may want to cover:
+## Run
 
-* Ruby version
+You will need postgres running (you have the docker-compose)
 
-* System dependencies
+```shell
+git clone git@github.com:ruby-kafka-poc/customers_api.git
+cd customers_api
 
-* Configuration
+open https://confluent.cloud
+# Create a free account (no credit card needed free for 1 month), create a cluster,
+# create a global API key
+# go to cluster, cluster overview, cluster settings and get the bootstrap server
 
-* Database creation
+# WARNING DO NOT COMMIT THIS THINGS ANYWHERE!!!
+echo "
+BOOTSTRAP_SERVERS=AAAAAAAAAA:9092
+SECURITY_PROTOCOL=sasl_ssl
+SASL_MECHANISM=PLAIN
+SASL_USERNAME=BBBBBB
+SASL_PASSWORD=CCCCCCC
+" >> .priv_env
+export $(cat ./.private_env | sed 's/#.*//g' | xargs )
 
-* Database initialization
 
-* How to run the test suite
+bundle install
+bundle update
+bundle exec rake db:create db:migrate db:seed
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+## Routes
 
-* Deployment instructions
+```shell
+GET    /organizations/:organization_id/invites
+POST   /organizations/:organization_id/invites
+DELETE /organizations/:organization_id/invites/:id
+GET    /organizations
+POST   /organizations
+GET    /organizations/:id
+PATCH  /organizations/:id
+PUT    /organizations/:id
+DELETE /organizations/:id
 
-* ...
-  docker-compose exec broker kafka-topics --describe --bootstrap-server localhost:9092  | awk '{ print $2 }' | trim
+GET    /customers
+POST   /customers
+GET    /customers/:id
+PATCH  /customers/:id
+PUT    /customers/:id
+DELETE /customers/:id
+```
