@@ -52,3 +52,28 @@ PATCH  /customers/:id
 PUT    /customers/:id
 DELETE /customers/:id
 ```
+
+## Create some data
+
+```shell
+bundle exec rails server -b '0.0.0.0' -p 3001
+
+curl --location -g --request POST 'http://localhost:3001/organizations' \
+--header 'Content-Type: application/json' \
+--data-raw '{ "organization": {"name": "Teravision" }}'
+
+curl --location -g --request POST 'http://localhost:3001/organizations' \
+--header 'Content-Type: application/json' \
+--data-raw '{ "organization": {"name": "Versapay" }}'
+
+curl --location -g --request POST 'http://localhost:3001/customers' \
+--header 'Content-Type: application/json' \
+--data-raw '{ "customer": {"name": "John", "last_name": "Do", "email": "jdo@gmail.com"}}'
+
+curl --location -g --request POST 'http://localhost:3001/customers' \
+--header 'Content-Type: application/json' \
+--data-raw '{ "customer": {"name": "Matt", "last_name": "Berrueta", "email": "mberrueta@teravisiontech.com"}}'
+
+
+
+```
